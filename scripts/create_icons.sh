@@ -4,7 +4,6 @@ function make_icon() {
 	TMP=/tmp/btn.png
 	NAME=${1}.png
 	ICON=${ORIG}/${NAME}
-	RESULT=${DEST}/{NAME}
 	FOCUS=window_${2}.png
 	if [[ $1 == close* ]] ; 	then POSITION="left"; GRAVITY="East"; 	fi
 	if [[ $1 == maximize* ]] ; 	then POSITION="right"; GRAVITY="West"; fi
@@ -21,7 +20,11 @@ function make_icon() {
 
 function make_theme() {
 
-	cd $1/pixmaps
+	theme=$1
+
+	ORIG=/usr/share/themes/${theme}/metacity-1
+
+	cd ${theme}/pixmaps
 	for icon in "close" "maximize" "minimize" ; do
 		make_icon ${icon} focused
 		make_icon ${icon}_focused_pressed focused
@@ -33,7 +36,6 @@ function make_theme() {
 
 for theme in "Ambiance" "Radiance" ; do
 
-	ORIG=/usr/share/themes/${theme}/metacity-1
 	make_theme ${theme}
 
 done
